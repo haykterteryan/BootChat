@@ -5,13 +5,13 @@ import am.springboot.chat.Dao.UsersDao;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.text.MessageFormat;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
-@Controller
+@RestController
+@RequestMapping("/")
 public class HomeController {
 
     UsersDao usersDao;
@@ -20,14 +20,23 @@ public class HomeController {
         this.usersDao = usersDao;
     }
 
-    @GetMapping(value="/", params = "search")
+    @GetMapping(value="/{username}", params = "search")
     public ResponseEntity<List<SearchUserDto>> search(@RequestParam(name = "search") String name){
         List<SearchUserDto> searchUserDtos = usersDao.loadUserByname(name);
-        return searchUserDtos.isEmpty() ?
+        return  searchUserDtos.isEmpty() ?
                 ResponseEntity.noContent().build() :
                 ResponseEntity.ok(searchUserDtos);
 
     }
 
+    @GetMapping(path = "{username}")
+    public String homepage(@PathVariable("username") String username){
+        //TODO
+
+        System.out.println("aaaaaa");
+        return "index";
+
+
+    }
 
 }
