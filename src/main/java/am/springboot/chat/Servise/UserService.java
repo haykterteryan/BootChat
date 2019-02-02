@@ -46,8 +46,5 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
     }
 
-    public void loadUserByname(String name) {
-        userRepository.
 
-    }
 }
